@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include "table.h"
 #include "figure.h"
 
 class Game: public QGraphicsView{
@@ -16,9 +17,10 @@ public:
 
     QGraphicsScene* scene;
     QString whosTurn;
+    Table* table;
+
 public slots:
     void start();
-
 };
 
 #endif // GAME_H

@@ -25,8 +25,8 @@ void Game::start(){
     //Ocistimo ekran
     scene->clear();
     scene->setBackgroundBrush(QBrush(QImage(":/slike/chessboardtessellation.jpg")));
-    Table* table=new Table();
-    table->placeFigures();
+    table=new Table();
+  //  table->placeFigures();
 }
 
 void Game::displayMainMenu(){

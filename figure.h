@@ -3,13 +3,13 @@
 
 #include <QGraphicsPixmapItem>
 #include <QGraphicsItem>
-#include "game.h"
 
 class Figure: public QGraphicsPixmapItem{
 public:
     Figure(QGraphicsItem* parent=NULL);
+    void setOwner(QString owner);
 private:
-    QString owner;
+    QString _owner;
 
 };
 
