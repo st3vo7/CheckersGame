@@ -12,8 +12,10 @@ public:
     void placeFigures();
     void setFields();
     QList<Figure*> figures;
-    void ispisiPolja(QVector< QVector<Field> > f);
+
+    void ispisiPolja(QList<Figure*> f);
     void figureRow(int red,int x, int y, int z, int k, QString owner);
+
 
 private:
     QVector< QVector<Field> > fields;

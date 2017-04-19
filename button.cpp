@@ -17,7 +17,6 @@ Button::Button(QString name, QGraphicsItem *parent):QGraphicsRectItem(parent){
     text->setFont(titleFont);
     text->setPos(xPos,yPos);
 
-    //dozvoli uzvracanje hove eventima
     setAcceptHoverEvents(true);
 }
 

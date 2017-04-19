@@ -10,27 +10,25 @@ Table::Table(){
     placeFigures();
 }
 
+void Table::ispisiPolja(QList<Figure*> f){
+    for(int i=0;i<f.length();i++){
+        cout<<f[i]->getX()<<" , ";
+        cout<<f[i]->getY()<<endl;
+    }
+}
+
+
 void Table::placeFigures(){
-    figureRow(0,0,2,4,6,"PLAYER1");
-    figureRow(1,1,3,5,7,"PLAYER1");
-    figureRow(2,0,2,4,6,"PLAYER1");
+    figureRow(0,0,2,4,6,"PLAYER2");
+    figureRow(1,1,3,5,7,"PLAYER2");
+    figureRow(2,0,2,4,6,"PLAYER2");
 
-    figureRow(5,1,3,5,7,"PLAYER2");
-    figureRow(6,0,2,4,6,"PLAYER2");
-    figureRow(7,1,3,5,7,"PLAYER2");
-
-    figureRow(1,0,2,4,6,"NONE");
-    figureRow(2,1,3,5,7,"NONE");
-    figureRow(5,0,2,4,6,"NONE");
-
-    figureRow(6,1,3,5,7,"NONE");
-    figureRow(7,0,2,4,6,"NONE");
-    figureRow(0,1,3,5,7,"NONE");
-
-    figureRow(3,0,2,4,6,"NONE");
     figureRow(3,1,3,5,7,"NONE");
     figureRow(4,0,2,4,6,"NONE");
-    figureRow(4,1,3,5,7,"NONE");
+
+    figureRow(5,1,3,5,7,"PLAYER1");
+    figureRow(6,0,2,4,6,"PLAYER1");
+    figureRow(7,1,3,5,7,"PLAYER1");
 }
 
 void Table::setFields(){
@@ -40,7 +38,7 @@ void Table::setFields(){
 
     for(int i=0;i<8;i++)
         for(int j=0;j<8;j++){
-           Field *f=new Field(2+i*74.75,2+j*74.75);
+           Field *f=new Field(4+i*74,4+j*74);
            fields[i][j]=*f;
         }
 }
@@ -74,4 +72,4 @@ void Table::figureRow(int red, int x, int y,int z, int k ,QString owner){
         game->scene->addItem(figura2);
         game->scene->addItem(figura3);
 
-    }
+}
