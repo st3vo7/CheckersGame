@@ -25,6 +25,7 @@ public:
     int getY();
     int hasConf();
     bool eaten=false;
+    bool isQueen=false;
 
 private:
     QString _owner;

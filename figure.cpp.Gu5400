@@ -37,10 +37,11 @@ void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event){
            if(game->checkIfKonflikt(game->whosTurn)){
                if(this->hasConf()){
                    game->validan(this, this->getX(), this->getY());
+                   cout<<this->getY()<<endl;
+                   cout<<this->isQueen<<endl;
                }
-               else{
+               else
                    return;
-               }
            }
            else
               game->validan(this, this->getX(), this->getY());
@@ -59,6 +60,13 @@ void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event){
                    if(notEmpty(game->table->figures[i]) && game->table->figures[i]->getOwner()=="NONE")
                        game->scene->removeItem(game->table->figures[i]);
            }
+           /*
+           if(game->f->hasConf() && game->eaten){
+               game->f=NULL;
+               cout<<"proba"<<endl;
+               return;
+            }
+*/
 
            game->end();
            game->setWhosTurn();
@@ -108,17 +116,10 @@ int Figure::hasConf(){
        || (this->getOwner()=="PLAYER1" && !game->konflikt1(this->getX()+74,this->getY()-74)
             && game->free(this->getX()+148,this->getY()-148)))
         return 1;
-    if((this->getOwner()=="PLAYER1" && this->isQueen && !game->konflikt1(this->getX()-74,this->getY()+74))
-        || (this->getOwner()=="PLAYER1" && this->isQueen && !game->konflikt1(this->getX()+74,this->getY()+74)))
-        return 1;
-
     if((this->getOwner()=="PLAYER2" && !game->konflikt2(this->getX()-74,this->getY()+74)
             && game->free(this->getX()-148,this->getY()+148))
        || (this->getOwner()=="PLAYER2" && !game->konflikt2(this->getX()+74,this->getY()+74)
             && game->free(this->getX()+148,this->getY()+148)))
-        return 1;
-    if((this->getOwner()=="PLAYER2" && this->isQueen && !game->konflikt2(this->getX()-74,this->getY()-74))
-        || (this->getOwner()=="PLAYER2" && this->isQueen && !game->konflikt2(this->getX()+74,this->getY()-74)))
         return 1;
     return 0;
 }

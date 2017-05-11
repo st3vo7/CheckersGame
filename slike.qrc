@@ -1,10 +1,12 @@
 <RCC>
     <qresource prefix="/slike">
-        <file>492555-43-1000-fbf6681ace-1488812954.jpg</file>
         <file>chessboardtessellation.jpg</file>
-        <file>ponovo.png</file>
-        <file>ssss.png</file>
         <file>Untitled.png</file>
-        <file>spirala.png</file>
+        <file>aaa.png</file>
+        <file>que.png</file>
+        <file>coin.png</file>
+        <file>A.png</file>
+        <file>B.png</file>
+        <file>ss.jpg</file>
     </qresource>
 </RCC>

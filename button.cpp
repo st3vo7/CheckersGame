@@ -7,7 +7,7 @@ Button::Button(QString name, QGraphicsItem *parent):QGraphicsRectItem(parent){
     setRect(0,0,200,50);
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::darkCyan);
+    brush.setColor(Qt::darkGray);
     setBrush(brush);
 
     text= new QGraphicsTextItem(name,this);
@@ -28,13 +28,13 @@ void Button::mousePressEvent(QGraphicsSceneMouseEvent *event){
 void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::darkBlue);
+    brush.setColor(Qt::white);
     setBrush(brush);
 }
 
 void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::darkCyan);
+    brush.setColor(Qt::darkGray);
     setBrush(brush);
 }

@@ -29,14 +29,16 @@ SOURCES += main.cpp\
     figure.cpp \
     table.cpp \
     button.cpp \
-    field.cpp
+    field.cpp \
+    score.cpp
 
 HEADERS  += mainwindow.h \
     game.h \
     figure.h \
     table.h \
     button.h \
-    field.h
+    field.h \
+    score.h
 
 FORMS    += mainwindow.ui
 

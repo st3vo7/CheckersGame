@@ -7,7 +7,10 @@
 #include <QMouseEvent>
 #include "table.h"
 #include "figure.h"
+#include "score.h"
 #include <QMouseEvent>
+#include <QGraphicsRectItem>
+
 
 class Game: public QGraphicsView{
     Q_OBJECT
@@ -31,14 +34,21 @@ public:
     bool eaten=false;
     QString otherPlayer();
     int checkIfKonflikt(QString turn);
-
+    QGraphicsTextItem *t;
+    void end();
+    void displayEndWindow(QString message);
+    void drawPanel(int x,int y, int width, int height);
+    void drawPanel(int x,int y, int width, int height, QString str);
 
 
     QGraphicsScene* scene;
+
     Table* table;
     QPointF orignalPos;
     Figure* f;
     QString whosTurn="PLAYER1";
+    Score* scoreI;
+    Score* scoreII;
 
     void mouseMoveEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent *event);
@@ -47,7 +57,5 @@ public:
 public slots:
     void start();
 };
-
-
 
 #endif // GAME_H
