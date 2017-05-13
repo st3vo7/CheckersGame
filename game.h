@@ -38,7 +38,7 @@ public:
     void end();
     void displayEndWindow(QString message);
     void drawPanel(int x,int y, int width, int height);
-    void drawPanel(int x,int y, int width, int height, QString str);
+    void drawPanel(int x,int y, int width, int height, QString str, int k, int l);
 
 
     QGraphicsScene* scene;

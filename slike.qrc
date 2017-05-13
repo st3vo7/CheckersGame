@@ -8,5 +8,7 @@
         <file>A.png</file>
         <file>B.png</file>
         <file>ss.jpg</file>
+        <file>svitak.png</file>
+        <file>naslov.png</file>
     </qresource>
 </RCC>

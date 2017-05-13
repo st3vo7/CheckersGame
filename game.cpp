@@ -36,6 +36,7 @@ void Game::start(){
     //Ocistimo ekran
     scene->clear();
     scene->setBackgroundBrush(QBrush(QImage(":/slike/chessboardtessellation.jpg")));
+
     table=new Table();
     scoreI=new Score();
     scoreII=new Score();
@@ -58,20 +59,15 @@ void Game::start(){
 void Game::displayMainMenu(){
    //pravimo naslov
     scene->setBackgroundBrush(QBrush(QImage(":/slike/ss.jpg")));
-    QGraphicsTextItem* title=new QGraphicsTextItem(QString("Checkers"));
-    QFont titleFont("comic sans",60);
-    title->setDefaultTextColor(Qt::white);
-    title->setFont(titleFont);
-    int txPos=this->width()/2-title->boundingRect().width()/2;
-    int tyPos=150;
-    title->setPos(txPos,tyPos);
-    scene->addItem(title);
+    drawPanel(2,0,370,498,":/slike/svitak.png",110,150);
+
+    drawPanel(0,0,300,100,":/slike/naslov.png",150,0);
 
     //pravimo play dugme
 
     Button* play=new Button(QString("1 vs 1"));
     int bxPos=this->width()/2- play->boundingRect().width()/2;
-    int byPos=300;
+    int byPos=200;
     play->setPos(bxPos,byPos);
     connect(play,SIGNAL(clicked()),this,SLOT(start()));
     scene->addItem(play);
@@ -79,21 +75,21 @@ void Game::displayMainMenu(){
     // pravimo quit dugme
     Button* help=new Button(QString("vs computer"));
     int hxPos=this->width()/2-help->boundingRect().width()/2;
-    int hyPos=375;
+    int hyPos=275;
     help->setPos(hxPos,hyPos);
     //DODATI KONEKCIJU: connect(quit,SIGNAL(clicked()),this,SLOT(close()));
     scene->addItem(help);
 
     Button* quit2=new Button(QString("on network"));
     int q2xPos=this->width()/2-quit2->boundingRect().width()/2;
-    int q2yPos=450;
+    int q2yPos=350;
     quit2->setPos(q2xPos,q2yPos);
      // DODATI KONEKCIJU: connect(quit,SIGNAL(clicked()),this,SLOT(close()));
     scene->addItem(quit2);
 
     Button* quit=new Button(QString("EXIT"));
     int qxPos=this->width()/2-quit->boundingRect().width()/2;
-    int qyPos=525;
+    int qyPos=425;
     quit->setPos(qxPos,qyPos);
      connect(quit,SIGNAL(clicked()),this,SLOT(close()));
      scene->addItem(quit);
@@ -329,12 +325,14 @@ void Game::displayEndWindow(QString message){
         scene->items()[i]->setEnabled(false);
     }
     drawPanel(0,0,600,700);
-    drawPanel(50,100,500,500,":/slike/ss.jpg");
+    drawPanel(0,0,375,500,":/slike/ss.jpg",100,105);
+    drawPanel(0,0,375,500,":/slike/svitak.png",100,105);
+
 
     QGraphicsTextItem* tp=new QGraphicsTextItem(message + " won!");
     tp->setPos(190,200);
     tp->setFont(QFont("comic sans",30));
-    tp->setDefaultTextColor(Qt::blue);
+    tp->setDefaultTextColor(Qt::white);
     scene->addItem(tp);
 
     Button* playAgain=new Button(QString("PLAY AGAIN"));
@@ -429,10 +427,11 @@ void Game::drawPanel(int x, int y, int width, int height){
     scene->addItem(panel);
 }
 
-void Game::drawPanel(int x, int y, int width, int height, QString str){
+void Game::drawPanel(int x, int y, int width, int height, QString str, int k, int l){
     QGraphicsRectItem* panel=new QGraphicsRectItem(x,y,width,height);
     QBrush brush;
     brush.setTexture(QPixmap(str));
     panel->setBrush(brush);
+    panel->setPos(k,l);
     scene->addItem(panel);
 }
