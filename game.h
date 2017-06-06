@@ -36,7 +36,9 @@ public:
     int checkIfKonflikt(QString turn);
     QGraphicsTextItem *t;
     void end();
+    bool sused(Figure* glavna, Figure* pom);
     void displayEndWindow(QString message);
+    void demarkiraj();
     void drawPanel(int x,int y, int width, int height);
     void drawPanel(int x,int y, int width, int height, QString str, int k, int l);
 

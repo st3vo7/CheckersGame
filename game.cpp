@@ -12,9 +12,6 @@
 using namespace std;
 
 
-/* TO DO LIST:
- * završetak igre-prozor i dalje reference
-*/
 
 
 Game::Game(QWidget* parent){
@@ -149,7 +146,7 @@ void Game::placeFigure(Figure *f1){
 
     scene->removeItem(f1);
     for(int i=0;i<table->figures.length();i++){
-        if(table->figures[i]->eaten && table->figures[i]->getOwner()!="NONE"){
+        if(table->figures[i]->eaten && table->figures[i]->getOwner()!="NONE" && sused(table->figures[i],f1)){
             if(table->figures[i]->getOwner()!=whosTurn && whosTurn=="PLAYER1")
                 scoreI->inc();
             if(table->figures[i]->getOwner()!=whosTurn && whosTurn=="PLAYER2")
@@ -159,11 +156,13 @@ void Game::placeFigure(Figure *f1){
     }
     f->setZValue(0);
     f=NULL;
+    demarkiraj();
 }
 
 void Game::move(int i, int j){
     Figure* f1=new Figure();
     f1->setOwner("h");
+    cout<<"Napravljena h figura"<<endl;
     f1->setPos(i,j);
     scene->addItem(f1);
     table->figures.append(f1);
@@ -347,18 +346,34 @@ void Game::displayEndWindow(QString message){
 
 }
 
+void Game::demarkiraj(){
+    for(int i=0;i<table->figures.length();i++)
+        table->figures[i]->eaten=false;
+}
+
 
 
 void Game::validan(Figure* f,int i, int j){
     if(f->getOwner()=="PLAYER1"){
-
+    int a=0;
+    int b=0;
+    int c=0;
+    int d=0;
         if(konflikt1(i-74,j+74)!=-1 || konflikt1(i+74,j+74)!=-1 || konflikt1(i-74,j-74)!=-1 || konflikt1(i+74,j-74)!=-1){
-            if(f->isQueen)
-                 if(eatLD(f,i-74,j+74,konflikt1(i-74,j+74)) || eatRD(f,i+74,j+74,konflikt1(i+74,j+74))
-                    || eatLU(f,i-74,j-74,konflikt1(i-74,j-74)) || eatRU(f,i+74,j-74,konflikt1(i+74,j-74)))
-                    return;
+            if(f->isQueen){
+                a=eatLD(f,i-74,j+74,konflikt1(i-74,j+74));
+                b=eatRD(f,i+74,j+74,konflikt1(i+74,j+74));
+                c=eatLU(f,i-74,j-74,konflikt1(i-74,j-74));
+                d=eatRU(f,i+74,j-74,konflikt1(i+74,j-74));
 
-            if(eatLU(f,i-74,j-74,konflikt1(i-74,j-74)) || eatRU(f,i+74,j-74,konflikt1(i+74,j-74)))
+                 if(a||b||c||d)
+                    return;
+            }
+
+            c=eatLU(f,i-74,j-74,konflikt1(i-74,j-74));
+            d=eatRU(f,i+74,j-74,konflikt1(i+74,j-74));
+
+            if(c||d)
                 return;
 
        }
@@ -378,15 +393,25 @@ void Game::validan(Figure* f,int i, int j){
 
     else if(f->getOwner()=="PLAYER2"){
 
+        int a=0;
+        int b=0;
+        int c=0;
+        int d=0;
         if(konflikt2(i-74,j-74)!=-1 || konflikt2(i+74,j-74)!=-1 || konflikt2(i-74,j+74)!=-1 || konflikt2(i+74,j+74)!=-1){
             if(f->isQueen){
-                 if(eatLU(f,i-74,j-74,konflikt2(i-74,j-74)) || eatRU(f,i+74,j-74,konflikt2(i+74,j-74))
-                    || eatLD(f,i-74,j+74,konflikt2(i-74,j+74)) || eatRD(f,i+74,j+74,konflikt2(i+74,j+74)))
-                    return;
+                a=eatLU(f,i-74,j-74,konflikt2(i-74,j-74));
+                b=eatRU(f,i+74,j-74,konflikt2(i+74,j-74));
+                c=eatLD(f,i-74,j+74,konflikt2(i-74,j+74));
+                d=eatRD(f,i+74,j+74,konflikt2(i+74,j+74));
+                 if( a||b||c||d )
+                     return;
             }
 
-            if(eatLD(f,i-74,j+74,konflikt2(i-74,j+74)) || eatRD(f,i+74,j+74,konflikt2(i+74,j+74)))
-              return;
+            c=eatLD(f,i-74,j+74,konflikt2(i-74,j+74));
+            d=eatRD(f,i+74,j+74,konflikt2(i+74,j+74));
+
+            if(c||d)
+                return;
         }
 
        if(i!=4 && j!=4 && free(i-74,j-74) && f->isQueen)
@@ -434,4 +459,15 @@ void Game::drawPanel(int x, int y, int width, int height, QString str, int k, in
     panel->setBrush(brush);
     panel->setPos(k,l);
     scene->addItem(panel);
+}
+
+
+bool Game::sused(Figure* glavna,Figure *pom){
+    //sused po dijagonali
+
+    if((glavna->getX()-pom->getX()==74 || glavna->getX()-pom->getX()==-74) &&
+            (glavna->getY()-pom->getY()==74 || glavna->getY()-pom->getY()==-74))
+        return true;
+    return false;
+
 }

@@ -38,9 +38,9 @@ void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event){
                if(this->hasConf()){
                    game->validan(this, this->getX(), this->getY());
                }
-               else{
+               else
                    return;
-               }
+
            }
            else
               game->validan(this, this->getX(), this->getY());
@@ -122,6 +122,8 @@ int Figure::hasConf(){
         return 1;
     return 0;
 }
+
+
 
 
 void Figure::setX(int x){
