@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
+QT += testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,7 +31,10 @@ SOURCES += main.cpp\
     table.cpp \
     button.cpp \
     field.cpp \
-    score.cpp
+    score.cpp \
+    robot.cpp \
+    potez.cpp \
+    server.cpp
 
 HEADERS  += mainwindow.h \
     game.h \
@@ -38,7 +42,10 @@ HEADERS  += mainwindow.h \
     table.h \
     button.h \
     field.h \
-    score.h
+    score.h \
+    robot.h \
+    potez.h \
+    server.h
 
 FORMS    += mainwindow.ui
 

@@ -7,6 +7,12 @@ public:
     Field();
     int getx();
     int gety();
+
+    void setx(int x);
+    void sety(int y);
+
+
+
 private:
     int _x;
     int _y;

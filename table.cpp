@@ -10,10 +10,14 @@ Table::Table(){
     placeFigures();
 }
 
-void Table::ispisiPolja(QList<Figure*> f){
+void Table::ispisiPolja(QVector<QVector<Field>> f){
     for(int i=0;i<f.length();i++){
-        cout<<f[i]->getX()<<" , ";
-        cout<<f[i]->getY()<<endl;
+        for(int j=0;j<f[i].length();j++){
+            cout<<f[i][j].getx()<<" , ";
+            cout<<f[i][j].gety()<<endl;
+
+        }
+
     }
 }
 
@@ -41,6 +45,16 @@ void Table::setFields(){
            Field *f=new Field(4+i*74,4+j*74);
            fields[i][j]=*f;
         }
+}
+
+Field Table::getField(int i, int j)
+{
+    QVector< QVector<Field> > f=game->table->fields;
+    for(int s=0;s<f.size();s++)
+        for(int t=0;t<f[s].size();t++)
+            if(i==f[s][t].getx() && j==f[s][t].gety())
+                return f[s][t];
+    //return NULL; Ovo nece.. Sta da vratim ovde ako ne nadje??
 }
 
 

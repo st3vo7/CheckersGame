@@ -27,45 +27,98 @@ void Figure::setOwner(QString owner){
 }
 
 void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event){
-       if(game->whosTurn==getOwner() && game->f==NULL){
+    cukic();
+
+}
+/*void Figure::probna(){
+    if(game->whosTurn==getOwner() && game->f==NULL){
+    game->pickUpFigure(this);
+    koord(this);
+
+    if(game->checkIfKonflikt(game->whosTurn)){
+        if(this->hasConf()){
+            game->postaviH(this, this->getX(), this->getY());
+        }
+        else{
+            return;
+        }
+    }
+    else
+       game->postaviH(this, this->getX(), this->getY());
+    }
+
+}*/
+
+void Figure::cukic()
+{
+    if(game->whosTurn==getOwner() && game->f==NULL){
+
+        game->pickUpFigure(this);
+        koord(this);
+        game->f->setZValue(100);
 
 
-           game->pickUpFigure(this);
-           koord(this);
-           game->f->setZValue(100);
 
-           if(game->checkIfKonflikt(game->whosTurn)){
-               if(this->hasConf()){
-                   game->validan(this, this->getX(), this->getY());
-               }
-               else
-                   return;
+        if(game->ind == 2){ // Ako je mrezno, pamtim koordinate figure koja se pomera
+            game->poruka.append(QString::number(game->f->getX()));
+            game->poruka.append(",");
+            game->poruka.append(QString::number(game->f->getY()));
+            game->poruka.append(",");
+        }
 
-           }
-           else
-              game->validan(this, this->getX(), this->getY());
 
-       }
-       else if(getOwner()=="h"){
-           koord(this);
-           if(game->f){
-               game->placeFigure(this);
-           }
-           else
-               cout<<"ne prolazi";
-           for(int i=0;i<game->table->figures.length();i++){
-               if(game->table->figures[i]->getOwner()=="h")
-                   game->table->figures[i]->setOwner("NONE");
-                   if(notEmpty(game->table->figures[i]) && game->table->figures[i]->getOwner()=="NONE")
-                       game->scene->removeItem(game->table->figures[i]);
-           }
+        if(game->checkIfKonflikt(game->whosTurn)){
+            if(this->hasConf()){
+                game->validan(this, this->getX(), this->getY());
+            }
+            else{
+                return;
+            }
+        }
+        else
+           game->validan(this, this->getX(), this->getY());
 
-           game->end();
-           game->setWhosTurn();
+    }
+    else if(getOwner()=="h"){
+        koord(this);
+        cout<<"X koordinata polja gde sam je smestio:"<<this->getX()<<" i Y: "<<this->getY()<<endl;
+        if(game->f){
+            game->placeFigure(this);
+        }
+        else
+            cout<<"ne prolazi";
 
-       }
 
-       else;
+        if(game->ind == 2){ // Pamtim i koordinate polja na koje je figura pomerena
+            game->poruka.append(QString::number(this->getX()));
+            game->poruka.append(",");
+            game->poruka.append(QString::number(this->getY()));
+        }
+
+
+        for(int i=0;i<game->table->figures.length();i++){
+            if(game->table->figures[i]->getOwner()=="h")
+                game->table->figures[i]->setOwner("NONE");
+                if(notEmpty(game->table->figures[i]) && game->table->figures[i]->getOwner()=="NONE")
+                    game->scene->removeItem(game->table->figures[i]);
+        }
+
+        game->end();
+
+        if(game->ind == 2){ // Sve se pise u soket servera i flush() to odmah salje klijentu
+            game->server->socket->write(game->poruka.toUtf8());
+            game->server->socket->flush();
+            qDebug() << game->ind;
+        }
+
+        game->setWhosTurn();
+
+    }
+
+    else{
+
+    }
+
 }
 
 
@@ -122,8 +175,6 @@ int Figure::hasConf(){
         return 1;
     return 0;
 }
-
-
 
 
 void Figure::setX(int x){

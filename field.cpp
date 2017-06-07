@@ -12,3 +12,13 @@ int Field::getx(){
 int Field::gety(){
     return _y;
 }
+
+void Field::setx(int x)
+{
+    _x=x;
+}
+
+void Field::sety(int y)
+{
+    _y=y;
+}

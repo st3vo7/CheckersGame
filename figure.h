@@ -16,6 +16,8 @@ public:
     QString getOwner();
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void cukic();
+    void probna();
     void koord(Figure *f);
     bool notEmpty(Figure* f);
     void validanP1(int i, int j);
