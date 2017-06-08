@@ -6,9 +6,11 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QString>
+#include <QByteArray>
+#include <QHostAddress>
+#include <QAbstractSocket>
 
-class Server : public QObject
-{
+class Server : public QObject{
     Q_OBJECT
 public:
     Server(QObject *parent = 0);
@@ -16,11 +18,14 @@ public:
 
     QTcpServer *server;
     QTcpSocket *socket;
+    bool imaKonekciju;
 
 public slots:
-    void newConnection();
-    //void incomingConnection(quintptr socketDescriptor) override;
-    void startRead();
+    void novaKonekcija();
+    void primanjePoruke();
+
+signals:
+    void dobijeneKoordinate(int, int, int, int);
 };
 
 #endif // SERVER_H

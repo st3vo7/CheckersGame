@@ -3,15 +3,14 @@
 
 #include <QGraphicsTextItem>
 
-class Score:public QGraphicsTextItem{
-    public:
-        Score(QGraphicsItem* parent=0);
-        void inc();
-        int getScore();
+class Score : public QGraphicsTextItem{
+public:
+    Score(QGraphicsItem *parent = 0);
+    void inc();
+    int getScore();
 
-    private:
-        int score;
-
-
+private:
+    int score;
 };
+
 #endif // SCORE_H

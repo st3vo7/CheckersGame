@@ -1,20 +1,11 @@
 #include "server.h"
-#include "game.h"
-
-#include <QTime>
 
 Server::Server(QObject *parent)
     : QObject(parent)
 {
     socket = NULL;
     server = new QTcpServer(this);
-
-    connect(server, SIGNAL(newConnection()), this, SLOT(newConnection()));
-
-    if(server->listen(QHostAddress::Any, 1234))
-        qDebug() << "Server osluskuje!";
-    else
-        qDebug() << "Server ne osluskuje!";
+    connect(server, SIGNAL(newConnection()), this, SLOT(novaKonekcija()));
 }
 
 Server::~Server(){
@@ -28,23 +19,25 @@ Server::~Server(){
     delete server;
 }
 
-void Server::newConnection(){
-    socket = server->nextPendingConnection();
+void Server::novaKonekcija(){
+    if(!imaKonekciju){
+        socket = server->nextPendingConnection();
+        connect(socket, SIGNAL(readyRead()), this, SLOT(primanjePoruke()));
+        connect(socket, SIGNAL(connected()), this, SLOT(konektovan()));
+        connect(socket, SIGNAL(disconnected()), this, SLOT(diskonektovan()));
 
-    connect(socket, SIGNAL(readyRead()), this, SLOT(startRead()));
-
-    startRead();
-
-    socket->waitForBytesWritten(3000);
+        imaKonekciju = true;
+    }
 }
-/*
-void Server::incomingConnection(qintptr socketDescriptor){
-    Connection *connection = new Connection(this);
-    connection->setSocketDescriptor(socketDescriptor);
-    emit newConnection(connection);
-}*/
 
-void Server::startRead(){
-   // QString odKlijenta = QString::fromUtf8(socket->readAll());
+void Server::primanjePoruke(){
+    QString poruka(QString::fromUtf8(socket->readAll()));
+    qDebug() << poruka;
+    QStringList lista = poruka.split(",");
+    int fx = lista[1].toInt();
+    int fy = lista[2].toInt();
+    int px = lista[3].toInt();
+    int py = lista[4].toInt();
 
+    emit dobijeneKoordinate(fx, fy, px, py);
 }
