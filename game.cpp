@@ -44,6 +44,7 @@ Game::Game(QWidget *parent)
 }
 
 void Game::displayMainMenu(){
+    scene->clear();
     scene->setBackgroundBrush(QBrush(QImage(":/slike/ss.jpg")));
     drawPanel(2, 0, 370, 498, ":/slike/svitak.png", 110, 150);
 

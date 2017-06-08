@@ -41,3 +41,4 @@ void Server::primanjePoruke(){
 
     emit dobijeneKoordinate(fx, fy, px, py);
 }
+
