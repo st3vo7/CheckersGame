@@ -228,7 +228,7 @@ void Game::mouseMoveEvent(QMouseEvent *event){
 
 void Game::mousePressEvent(QMouseEvent *event){
     if(event->button() == Qt::RightButton)
-        cukic2();
+        desniklik();
 
     QGraphicsView::mousePressEvent(event);
 }
@@ -664,7 +664,7 @@ void Game::pobrisiHove(){
             table->figures[i]->setOwner("NONE");
 }
 
-void Game::cukic2(){
+void Game::desniklik(){
      if(f){
         f->setPos(orignalPos);
         for(int i = 0; i < table->figures.length(); i++){

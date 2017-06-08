@@ -30,12 +30,12 @@ void Figure::setOwner(QString owner){
 
 void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event){
     if(game->ind == 2)
-        cukicMrezni();
+        klikMrezni();
     else
-        cukic();
+        leviklik();
 }
 
-void Figure::cukic(){
+void Figure::leviklik(){
     if(game->whosTurn == getOwner() && game->f == NULL){
         game->pickUpFigure(this);
         koord(this);
@@ -74,7 +74,7 @@ void Figure::cukic(){
     }
 }
 
-void Figure::cukicMrezni(){
+void Figure::klikMrezni(){
     if(game->whosTurn==getOwner() && getOwner() == "PLAYER1" && game->f == NULL){
         game->pickUpFigure(this);
         koord(this);

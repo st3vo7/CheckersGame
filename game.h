@@ -42,7 +42,7 @@ public:
     void drawPanel(int x, int y, int width, int height);
     void drawPanel(int x, int y, int width, int height, QString str, int k, int l);
     void ispisiFigure();
-    void cukic2();
+    void desniklik();
     void postaviH(Figure *f, int i, int j);
     void pobrisiHove();
     bool sused(Figure *glavna, Figure *pom);
